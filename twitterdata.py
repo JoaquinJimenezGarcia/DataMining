@@ -9,8 +9,10 @@ auth = tweepy.OAuthHandler(consumer_key = consumer_key, consumer_secret = consum
 api = tweepy.API(auth)
 
 results = []
+numberOfTweets = 0
 
-for tweet in tweepy.Cursor(api.search, q="ITEM_TO_SEARCH").items("NUMBER_OF_RESULTS(IN INTEGER)"):
+# Search 100 items which contain "DeathStar"
+for tweet in tweepy.Cursor(api.search, q="DeathStar").items(100):
     results.append(tweet)
 
 def print_tweet(tweet):
@@ -21,3 +23,7 @@ for i in range(len(results)):
     print(f"Result nº{i}")
     tweet = results[i]
     print_tweet(tweet)
+    numberOfTweets = numberOfTweets + 1
+
+if (numberOfTweets == 0):
+    print("There wasn't any tweet.")
